@@ -1,0 +1,35 @@
+pipeline {
+    agent {
+        kubernetes {
+            yaml """
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    deployment: production
+spec:
+  containers:
+  - name: jnlp
+    image: mi-agente-cpp:v1
+    imagePullPolicy: Never
+    tty: true
+"""
+        }
+    }
+    stages {
+        stage('Descargar Artefacto') {
+            steps {
+                // Descargamos el programa desde servidor miniserve (IP del puente Minikube)
+                // Usamos la opción -o para guardarlo con nombre
+                sh 'curl -v -o app_produccion http://192.168.49.1:8081/mi_programa'
+            }
+        }
+        stage('Desplegar en Producción') {
+            steps {
+                // Le damos permisos y lo ejecutamos para demostrar que funciona
+                sh 'chmod +x app_produccion'
+                sh './app_produccion'
+            }
+        }
+    }
+}
