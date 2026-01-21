@@ -1,7 +1,6 @@
 pipeline {
     agent {
         kubernetes {
-            // Este es el nombre que tendrá el pod
             yaml """
 apiVersion: v1
 kind: Pod
@@ -30,8 +29,13 @@ spec:
         }
         stage('Verificar') {
             steps {
-                sh 'mkdir -p /tmp/smok/program-cpp' 
+                sh 'mkdir -p /tmp/smok/program-cpp'
                 sh './mi_programa'
+            }
+        }
+        stage('Archivar') {
+            steps {
+                sh 'curl -v -F "path=@mi_programa" http://192.168.49.1:8081/upload'
             }
         }
     }
