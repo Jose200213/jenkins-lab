@@ -23,4 +23,6 @@ jobs:
         run: g++ wersja-x.cpp -o mi_programa
 
       - name: Run Program
-        run: ./mi_programa
+        run: |
+          mkdir -p /tmp/smok/program-cpp
+          ./mi_programa
