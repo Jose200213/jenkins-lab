@@ -20,8 +20,8 @@ jobs:
           uname -m
 
       - name: Compile C++
-        run: g++ wersja-x.cpp -o mi_programa
-
+        run: g++ -std=c++17 wersja-x.cpp -o mi_programa
+        
       - name: Run Program
         run: |
           sudo mkdir -p /tmp/smok/program-cpp
