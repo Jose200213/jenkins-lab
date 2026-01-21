@@ -1,0 +1,31 @@
+name: C++ Multi-Arch Verification
+
+# Se ejecuta cada vez que haces un push
+on: [push, workflow_dispatch]
+
+jobs:
+  verify:
+    name: Build on ${{ matrix.os }}
+    runs-on: ${{ matrix.os }} # Aquí GitHub elige la máquina
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+
+    steps:
+      # 1. Descargar el código del repo
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # 2. Mostrar qué arquitectura es 
+      - name: Check Architecture
+        run: |
+          echo "Estoy corriendo en:"
+          uname -m
+
+      # 3. Compilar
+      - name: Compile C++
+        run: g++ wersja-x.cpp -o mi_programa
+
+      # 4. Ejecutar para verificar
+      - name: Run Program
+        run: ./mi_programa
