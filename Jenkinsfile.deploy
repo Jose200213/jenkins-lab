@@ -28,6 +28,7 @@ spec:
             steps {
                 // Le damos permisos y lo ejecutamos para demostrar que funciona
                 sh 'chmod +x app_produccion'
+                sh 'mkdir -p /tmp/smok/program-cpp'
                 sh './app_produccion'
             }
         }
