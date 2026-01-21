@@ -35,7 +35,7 @@ spec:
         }
         stage('Archivar') {
             steps {
-                sh 'curl -v -F "path=@mi_programa" http://192.168.49.1:8081/upload'
+                sh 'curl -v -F "file=@mi_programa" "http://192.168.49.1:8081/upload?path=/"'
             }
         }
     }
