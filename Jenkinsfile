@@ -30,6 +30,7 @@ spec:
         }
         stage('Verificar') {
             steps {
+                sh 'mkdir -p /tmp/smok/program-cpp' 
                 sh './mi_programa'
             }
         }
